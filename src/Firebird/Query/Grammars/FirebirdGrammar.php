@@ -105,5 +105,14 @@ class FirebirdGrammar extends Grammar {
   {
     return 'skip '.(int) $limit;
   }
+  
+  protected function wrapValue($value) {
+
+        if ($value !== '*') {
+            return str_replace('"', '""', $value);
+        }
+
+        return $value;
+    }
 
 }
