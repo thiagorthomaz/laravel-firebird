@@ -1,6 +1,14 @@
 
 # 1. Installation and Setup
 
+### Fist follow the [installation](https://laravel.com/docs/5.7#installation) guide on the Oficial Laravel Documentation
+
+### Install Firebird driver for PHP 7.2 on Ubuntu 18.04
+
+```json
+sudo apt-get install php-interbase
+sudo service apache2 reload
+```
 
 ### Install using composer
 
