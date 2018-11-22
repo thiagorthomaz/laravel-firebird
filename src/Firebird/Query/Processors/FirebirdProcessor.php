@@ -37,9 +37,10 @@ class FirebirdProcessor extends Processor {
      */
     private function getFirebirdPrimaryKeyFieldName(Builder $query){
       
-      $result = DB::select("SELECT idx.RDB\$FIELD_NAME as FIELD_NAME FROM RDB\$RELATION_CONSTRAINTS relc join RDB\$INDEX_SEGMENTS idx on idx.RDB\$INDEX_NAME = relc.RDB\$INDEX_NAME WHERE relc.RDB\$RELATION_NAME = ? and relc.RDB\$CONSTRAINT_TYPE = 'PRIMARY KEY'", array($query->from));
+      $result = DB::select("SELECT idx.RDB\$FIELD_NAME as FIELD_NAME FROM RDB\$RELATION_CONSTRAINTS relc join RDB\$INDEX_SEGMENTS idx on idx.RDB\$INDEX_NAME = relc.RDB\$INDEX_NAME WHERE relc.RDB\$RELATION_NAME = ? and relc.RDB\$CONSTRAINT_TYPE = 'PRIMARY KEY'", array(strtoupper($query->from)));
+
       if (!isset($result[0])) {
-        throw new InvalidArgumentException('Primary key field was not found');
+        throw new \InvalidArgumentException('Primary key field was not found in ' . strtoupper($query->from));
       } else {
         return $result[0]->FIELD_NAME;
       }
